@@ -160,37 +160,45 @@ export default function AnimatedChart({
           )}
         </AnimatePresence>
 
-        {nodesWithData.map((node) => (
-          <motion.circle
-            key={node.id}
-            fill={layout === "pack" ? "#6e11eb" : getColor(node.id)}
-            initial={false}
-            animate={{
-              cx: node.x,
-              cy: node.y,
-              r: node.r,
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 90,
-              damping: 20,
-            }}
-            onMouseMove={(e) => {
-              if (!node.company) return;
+        {nodesWithData.map((node) => {
+          const baseColor = layout === "pack" ? "#6e11eb" : getColor(node.id);
 
-              const rect =
-                e.currentTarget.ownerSVGElement.getBoundingClientRect();
+          return (
+            <motion.circle
+              key={node.id}
+              fill={baseColor}
+              initial={false}
+              animate={{
+                cx: node.x,
+                cy: node.y,
+                r: node.r,
+                fill: baseColor,
+              }}
+              whileHover={{
+                fill: baseColor === "#6e11eb" ? "#8961f6" : "#84cc16",
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 90,
+                damping: 20,
+              }}
+              onMouseMove={(e) => {
+                if (!node.company) return;
 
-              setInteractionData?.({
-                xPos: e.clientX - rect.left,
-                yPos: e.clientY - rect.top,
-                data: node.company,
-              });
-            }}
-            onMouseLeave={() => setInteractionData?.(null)}
-            style={{ cursor: "pointer" }}
-          />
-        ))}
+                const rect =
+                  e.currentTarget.ownerSVGElement.getBoundingClientRect();
+
+                setInteractionData?.({
+                  xPos: e.clientX - rect.left,
+                  yPos: e.clientY - rect.top,
+                  data: node.company,
+                });
+              }}
+              onMouseLeave={() => setInteractionData?.(null)}
+              style={{ cursor: "pointer" }}
+            />
+          );
+        })}
 
         {nodesWithData.map((node) => {
           const isFootball = footballClubs.includes(node.id);

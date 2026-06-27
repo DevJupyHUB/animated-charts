@@ -66,12 +66,12 @@ export default function App() {
       </div>
       <div className="text-center text-xs text-neutral-500 mt-4 h-6">
         <a
-          href="https://gomarketcap.com/"
+          href="https://tradingview.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-neutral-700"
         >
-          Date: 21/07/2026 Data Source: https://gomarketcap.com//pt
+          Date: 21/07/2026 Data Source: https://tradingview.com
         </a>
       </div>
     </main>
