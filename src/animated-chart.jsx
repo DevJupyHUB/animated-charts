@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import * as d3 from "d3";
 import { motion, AnimatePresence } from "motion/react";
+import { Typewriter } from "./type-writer";
 
 import {
   footballClubs,
@@ -94,27 +95,25 @@ export default function AnimatedChart({
           animate={{ opacity: 1, y: 0 }}
           transition={{
             duration: 0.5,
-            delay: 2,
+            delay: 0.5,
           }}
         >
           {layout === "pack" && (
-            <>
-              {companyCount} companies · €{totalMktCapB} total capital
-            </>
+            <Typewriter
+              text={`${companyCount} companies · €${totalMktCapB} total capital`}
+            />
           )}
 
           {layout === "group" && (
-            <>
-              {fcCount} football clubs · €{fcMktCapB}
-              <br />
-              {otherCount} other companies · €{otherMktCapB}
-            </>
+            <Typewriter
+              text={`${fcCount} football clubs · €${fcMktCapB} | ${otherCount} other companies · €${otherMktCapB}`}
+            />
           )}
 
           {layout === "swarm" && (
-            <>
-              {companyName} · {maxGrowth.toFixed(2)}% growth
-            </>
+            <Typewriter
+              text={`${companyName} · ${maxGrowth.toFixed(2)}% growth`}
+            />
           )}
         </motion.div>
       </div>
